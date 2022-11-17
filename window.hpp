@@ -7,7 +7,7 @@
 #include <cstdio>
 #pragma once
 
-#include "text.hpp"
+
 
 class MainWindow{
     public:
@@ -28,5 +28,5 @@ class MainWindow{
         bool isRunning;
         SDL_Window* window;
         SDL_Renderer* renderer;
-        
+        SDL_Surface* img;
 };

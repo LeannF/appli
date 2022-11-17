@@ -1,4 +1,5 @@
 #include <SDL2/SDL.h>
+#include <SDL2/SDL_image.h>
 #include <SDL2/SDL_ttf.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -6,12 +7,21 @@
 
 #include "window.hpp"
 #include "text.hpp"
+#include "image.hpp"
+#include "rectangle.hpp"
+
+SDL_Surface *myImg;
+SDL_Surface* image;
+SDL_Texture* myTexture;
 
 
 MainWindow::MainWindow()
 {
   this->window = NULL;
   this->renderer = NULL;
+  this->img == NULL;
+  this->isRunning = true;
+
 }
 
   // FONCTION INITIALISATION DE FENETRE + VERIF ERREURS
@@ -39,8 +49,16 @@ int MainWindow::init(const char* title,int width, int height)
   if(TTF_Init() == -1)
   {
     std::cout << "FONT ERROR" << std::endl;
-    return false;
+    return EXIT_FAILURE;
   }
+
+
+  if(IMG_Init(IMG_INIT_JPG != IMG_INIT_JPG) )
+  {
+    std::cout << "IMAGE ERROR" << std::endl;
+    return EXIT_FAILURE;
+  }
+
 
   isRunning = true;
   return 0;
@@ -52,6 +70,7 @@ MainWindow::~MainWindow()
   SDL_DestroyRenderer(this->renderer);
   TTF_CloseFont;
   TTF_Quit();
+  IMG_Quit();
   SDL_Quit();  
 }
 
@@ -73,5 +92,6 @@ void MainWindow::clean() {
   SDL_DestroyWindow(window);
   SDL_DestroyRenderer(renderer);
   TTF_Quit();
+  IMG_Quit();
   SDL_Quit();
 }

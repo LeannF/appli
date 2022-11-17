@@ -1,4 +1,5 @@
 #include <SDL2/SDL.h>
+#include <SDL2/SDL_image.h>
 #include <SDL2/SDL_ttf.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -6,19 +7,21 @@
 
 #include "window.hpp"
 #include "text.hpp"
-
+#include "image.hpp"
+#include "rectangle.hpp"
   
 int main(void) 
 {
-    TTF_Init();
-    TTF_Font* font;
+
     MainWindow window;
-    SDL_Surface* texte;
-    Text *word;
+    Rectangle *rectangle;
+    Rectangle *rectangle2;
+
     Uint32 frame_rate, frame_time, frame_delay = 20;
     window.init("Appli", 1920, 1080); // Creation de la fenetre 
-    
-    Text text(window.getRenderer(), "./Roboto-Black.ttf", 30, "Test", {255, 255, 255, 255});
+    Text text(window.getRenderer(), "./font/Roboto/Roboto-Black.ttf", 30, "Timer", {255, 255, 255, 255});
+
+    Image image(window.getRenderer(), 120, 120, 100, 100, "./img/biberon.jpg");
 
     while(window.running() == true )
     {
@@ -28,15 +31,13 @@ int main(void)
         SDL_RenderClear(window.getRenderer());
         text.display(20, 20, window.getRenderer());
 
-        word->post();
-
+        rectangle->create(window.getRenderer());
+        image.show(window.getRenderer());
         SDL_RenderPresent(window.getRenderer());
-
 
         SDL_Event event;
         if(SDL_PollEvent(&event)){
-            if(event.type == SDL_QUIT ){
-                
+            if(event.type == SDL_QUIT ){             
                 window.clean();
                 break;
             }
