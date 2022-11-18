@@ -8,7 +8,6 @@
 #include "window.hpp"
 #include "text.hpp"
 #include "image.hpp"
-#include "rectangle.hpp"
 
 SDL_Surface *myImg;
 SDL_Surface* image;

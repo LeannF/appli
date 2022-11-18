@@ -14,6 +14,7 @@ class Text
 {
 private:
     SDL_Texture *MyTexture = nullptr;
+    SDL_Texture *MyTexture2 = nullptr;
     SDL_Rect text_rect;
     SDL_Renderer *renderer;
 
@@ -21,9 +22,8 @@ private:
 public:
     Text(SDL_Renderer *renderer,const std::string &font_path, int font_size, const std::string &message, const SDL_Color Color);
     ~Text();
-    int x;
-    int y;
-    void display(int x, int y, SDL_Renderer *renderer);
+    void MouseKeyEvent(SDL_Event event, std::string inputText, const Uint8* keystates);
+    void display(SDL_Renderer *renderer);
 
     SDL_Texture *loadFont(SDL_Renderer *renderer, const std::string &font_path, int font_size, const std::string &message, const SDL_Color Color);
 };

@@ -10,7 +10,6 @@
 #include "window.hpp"
 #include "text.hpp"
 #include "image.hpp"
-#include "rectangle.hpp"
 
 const Uint8 *keystates = SDL_GetKeyboardState(NULL);
 
@@ -24,6 +23,9 @@ Text::Text(SDL_Renderer *renderer, const std::string &font_path, int font_size, 
 {
     MyTexture = loadFont(renderer, font_path, font_size,  message, Color);
     SDL_QueryTexture(MyTexture, nullptr, nullptr, &text_rect.w, &text_rect.h);
+
+    MyTexture2 = loadFont(renderer, font_path, font_size,  message, Color);
+    SDL_QueryTexture(MyTexture2, nullptr, nullptr, &text_rect.w, &text_rect.h);
 }
 
 Text::~Text()
@@ -52,15 +54,65 @@ SDL_Texture *Text::loadFont(SDL_Renderer *renderer, const std::string &font_path
         std::cout << "failed to create text texture" << std::endl;
 
     }
+    SDL_FreeSurface(text_surface );
     return text_texture;
 }
 
-void Text::display(int x, int y, SDL_Renderer *renderer)
+void Text::display(SDL_Renderer *renderer)
 {
-    text_rect.x =x;
-    text_rect.y =y;
 
-    SDL_RenderCopy(renderer, MyTexture, nullptr, &text_rect);
+
+    SDL_Rect dstrect = {200, 200, 200, 200};
+    SDL_Rect dstrect2 = {500, 70, 200, 200};
+
+
+    SDL_RenderCopy(renderer, MyTexture, nullptr, &dstrect);
+    SDL_RenderCopy(renderer, MyTexture2, nullptr, &dstrect2);
+
 }
 
+/*void MouseKeyEvent(SDL_Event event, std::string inputText, const Uint8* keystates) {
 
+    //if (keystates[SDL_SCANCODE_A]) cout << "A" << endl;
+    if (SDL_MOUSEMOTION == event.type) 
+    {
+
+        int x, y;
+        SDL_GetMouseState(&x, &y);
+
+        std::cout << x << " : " << y << std::endl;
+        
+    }
+
+
+    if (SDL_MOUSEBUTTONDOWN == event.type) {
+        if (SDL_BUTTON_LEFT == event.button.button) {
+            std::cout << "Left mouse button is down" << std::endl;
+        }
+    }
+    if (keystates[SDL_SCANCODE_BACKSPACE] && inputText.length() > 0) {
+        inputText.pop_back();
+    }
+    else if (keystates[SDL_SCANCODE_C] && SDL_GetModState() && KMOD_CTRL) {
+        SDL_SetClipboardText(inputText.c_str());
+    }
+    else if (keystates[SDL_SCANCODE_V] && SDL_GetModState() && KMOD_CTRL) {
+        inputText = SDL_GetClipboardText();
+    }
+    else if (event.type == SDL_TEXTINPUT) {
+        inputText += event.text.text;        
+        
+    }
+    if (inputText.length() > 0) {
+        std::cout << inputText;
+        std::cout.flush();
+        
+    }
+
+    
+    /*if (SDL_MOUSEBUTTONDOWN == event.type) {
+        (loopinput = true)
+    }
+
+       
+}*/
