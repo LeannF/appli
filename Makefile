@@ -26,3 +26,5 @@ uml/classes.png: $(HPP)
 # Count the number of lines of code:
 nblines:
 	@wc -l $(CPP) $(HPP)
+
+	
