@@ -62,12 +62,10 @@ void Text::display(SDL_Renderer *renderer)
 {
 
 
-    SDL_Rect dstrect = {200, 200, 200, 200};
-    SDL_Rect dstrect2 = {500, 70, 200, 200};
+    SDL_Rect dstrect = {100, 400, 100, 100};
 
 
     SDL_RenderCopy(renderer, MyTexture, nullptr, &dstrect);
-    SDL_RenderCopy(renderer, MyTexture2, nullptr, &dstrect2);
 
 }
 

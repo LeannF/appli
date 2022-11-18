@@ -1,6 +1,4 @@
 #include "liste.hpp"
-#include "sqlite/sqlite3.h"
-
 #include <iostream>
 
 Liste::Liste(sqlite3* db){ this->db = db;};

@@ -2,7 +2,7 @@ CC=g++
 # Adapt the variables below to your needs:
 EXE=main
 CPP= main.cpp biberon.cpp liste.cpp baby.cpp window.cpp text.cpp image.cpp Functions.cpp
-HPP= baby.hpp biberon.hpp liste.hpp	json.hpp window.hpp text.hpp image.hpp
+HPP= baby.hpp biberon.hpp liste.hpp	json.hpp window.hpp text.hpp image.hpp Functions.hpp
 
 
 # see https://sqlite.org/howtocompile.html. I added one option to show how it's done

@@ -12,7 +12,7 @@
 
 #include "biberon.hpp"
 #include "window.hpp"
-#include "Functions.cpp"
+#include "Functions.hpp"
 #include "text.hpp"
 #include "image.hpp"
 #include "database.cpp"
@@ -50,7 +50,8 @@ Baby makeBaby(sqlite3* db){
 		std::string sql = std::string(
 			"INSERT INTO BABY(name,minQuant,nTakes) "\
 			"VALUES('" + name + "', " + std::to_string(minQuantity) + ", " + std::to_string(nbTakes) + ");");
-		SQL(db, sql.c_str());
+		    SQL(db, sql.c_str()
+        );
 	}
 
 	Baby baby(name, minQuantity, nbTakes);
@@ -80,7 +81,8 @@ void createList(sqlite3* db, Liste *maListe) {
         std::string sql = std::string(
 			"INSERT INTO LIST(MilkPowder,Water, MilkToBUY, WaterToBuy) "\
 			"VALUES(" + std::to_string(milkPowder) + ", " + std::to_string(water) +", 0, 0);");
-		SQL(db, sql.c_str());
+		    SQL(db, sql.c_str()
+        );
 
         
         maListe->setPowder(milkPowder);
@@ -108,19 +110,20 @@ Biberon createBib(Baby baby, Liste* myList, sqlite3* db) {
 	cin >> minutes;
 
     heure monHeure;
-        monHeure.heure = hour;
-        monHeure.minutes = minutes;
+    monHeure.heure = hour;
+    monHeure.minutes = minutes;
     bib.setHour(monHeure); 
  
     std::string sql = std::string(
-			"INSERT INTO BIBERON(QuantDrank,QuantBottle,baby, puke) "\
-		 	"VALUES("+ std::to_string(quantity) + ", " + std::to_string(bottleQuant) + ", '" + baby.getName() + "', 0);");
-		SQL(db, sql.c_str()); 
+        "INSERT INTO BIBERON(QuantDrank,QuantBottle,baby, puke) "\
+        "VALUES("+ std::to_string(quantity) + ", " + std::to_string(bottleQuant) + ", '" + baby.getName() + "', 0);");
+        SQL(db, sql.c_str()
+    ); 
 
 	return bib;   
 
 
-}  
+}
 int main(void) 
 {
     sqlite3* db =  createDatabase();
@@ -129,12 +132,13 @@ int main(void)
     Liste* maListe = new Liste(db);
     createList(db, maListe);
 
-   maListe->buyPoudre();
+    maListe->buyPoudre();
+
     MainWindow window;
 
     Uint32 frame_rate, frame_time, frame_delay = 20;
     window.init("Appli", 1920, 1080); // Creation de la fenetre 
-    Text text(window.getRenderer(), "./font/Roboto/Roboto-Black.ttf", 30, "Timer", {255, 255, 255, 255});
+    Text text(window.getRenderer(), "./font/Roboto/Roboto-Black.ttf", 30, "Data", {255, 255, 255, 255});
 
     Image image(window.getRenderer(), 120, 120, 100, 100, "./img/biberon.jpg");
 
