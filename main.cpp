@@ -148,6 +148,11 @@ int main(void)
 
     Image image(window.getRenderer(), 120, 120, 100, 100, "./img/biberon.jpg");
 
+    SDL_Event event;
+    string inputText;
+    const Uint8* keystates = SDL_GetKeyboardState(NULL);
+    SDL_StartTextInput();
+
     while(window.running() == true )
     {
        
@@ -159,13 +164,15 @@ int main(void)
         image.show(window.getRenderer());
         SDL_RenderPresent(window.getRenderer());
 
-        SDL_Event event;
         if(SDL_PollEvent(&event)){
             if(event.type == SDL_QUIT ){             
                 window.clean();
                 break;
             }
+            MouseKeyEvent(event, inputText, keystates);
         }
+        
+
         frame_time = SDL_GetTicks() - frame_rate;
         if(frame_time < frame_delay){
             SDL_Delay( frame_delay - frame_time );

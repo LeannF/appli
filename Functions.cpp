@@ -10,7 +10,7 @@ void MouseKeyEvent(SDL_Event event, string inputText, const Uint8* keystates) {
         int x, y;
         SDL_GetMouseState(&x, &y);
 
-        cout << x << " : " << y << endl;
+       // cout << x << " : " << y << endl;
 
     }
 
@@ -35,10 +35,6 @@ void MouseKeyEvent(SDL_Event event, string inputText, const Uint8* keystates) {
     if (inputText.length() > 0) cout << inputText;
     cout.flush();
     
-    /*if (SDL_MOUSEBUTTONDOWN == event.type) {
-        (loopinput = true)
-    }*/
-
        
 }
 
