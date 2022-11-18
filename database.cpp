@@ -35,10 +35,10 @@ sqlite3* createDatabase()
 	//sqlite3_stmt* stmt; //a statement
 	int rc = sqlite3_open("test", &db);  //This crates the database
 	char* error;  //This crates the error message
-
+ 
 	// this creates all the tables that are going to be used, with all the different columns
 	rc = sqlite3_exec(db, "CREATE TABLE IF NOT EXISTS BABY (ID INTEGER PRIMARY KEY NOT NULL, name varchar(100), minQuant INT, nTakes INT, UNIQUE (name, minQuant, nTakes));" \
-		"CREATE TABLE IF NOT EXISTS BIBERON(QuantDrank INT, QuantBottle INT, baby varchar(100),  puke INT, UNIQUE (QuantDrank, QuantBottle, baby, puke));" \
+		"CREATE TABLE IF NOT EXISTS BIBERON(ID INTEGER PRIMARY KEY NOT NULL, QuantDrank INT, QuantBottle INT, baby varchar(100),  puke INT, hour INT , minutes INT);" \
 		"CREATE TABLE IF NOT EXISTS LIST(MilkPowder INT, Water INT, MilkToBUY INT NOT NULL, WaterToBuy INT NOT NULL, UNIQUE (MilkPowder, Water, MilkToBuy, WaterToBuy));", NULL, NULL, &error);
 
 	if (rc != SQLITE_OK) {

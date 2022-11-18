@@ -18,7 +18,7 @@
 #include "database.cpp"
 #include "database.hpp"
   
-
+int myId = 0;
 Baby makeBaby(sqlite3* db){
     const char* sql = "SELECT * FROM BABY";
 	std::vector<DBElement> data = dataFetch(db, sql);
@@ -91,7 +91,8 @@ void createList(sqlite3* db, Liste *maListe) {
 
 };
 
-Biberon createBib(Baby baby, Liste* myList, sqlite3* db) {
+Biberon createBib(Baby baby, Liste* myList, sqlite3* db, int id) {
+    id += 1;
 	int quantity, bottleQuant,hour, minutes, interval;
 
 	cout << "Enter the quantity drank : ";
@@ -102,7 +103,7 @@ Biberon createBib(Baby baby, Liste* myList, sqlite3* db) {
 	// cout << "Enter the interval for the alarm : ";
 	// cin >> interval;
 
-	Biberon bib(quantity, bottleQuant, baby, myList, db);
+	Biberon bib(quantity, bottleQuant, baby, myList, db, id);
 
     cout << "Enter the hour : ";
 	cin >> hour;
@@ -115,8 +116,8 @@ Biberon createBib(Baby baby, Liste* myList, sqlite3* db) {
     bib.setHour(monHeure); 
  
     std::string sql = std::string(
-        "INSERT INTO BIBERON(QuantDrank,QuantBottle,baby, puke) "\
-        "VALUES("+ std::to_string(quantity) + ", " + std::to_string(bottleQuant) + ", '" + baby.getName() + "', 0);");
+        "INSERT INTO BIBERON(QuantDrank,QuantBottle,baby, puke, hour , minutes) "\
+        "VALUES("+ std::to_string(quantity) + ", " + std::to_string(bottleQuant) + ", '" + baby.getName() + "', 0, " + std::to_string(hour) + ", " + std::to_string(minutes) + ");");
         SQL(db, sql.c_str()
     ); 
 
@@ -125,15 +126,20 @@ Biberon createBib(Baby baby, Liste* myList, sqlite3* db) {
 
 }
 int main(void) 
-{
+{ 
     sqlite3* db =  createDatabase();
     Baby baby = makeBaby(db);
     cout << "okkkk";
     Liste* maListe = new Liste(db);
     createList(db, maListe);
 
-    maListe->buyPoudre();
+    Biberon bib1 = createBib(baby, maListe, db, myId);   // <-- Function to create a biberno 
+    bib1.puked();
+    // maListe->addWater(2); //<-- funciton to add water pack to the list 
+    // maListe->buyWater(); // <-- function to buy water and to add the exact quantity to the stock
 
+
+    // The stock get modified and it modify the db aswell. 
     MainWindow window;
 
     Uint32 frame_rate, frame_time, frame_delay = 20;
